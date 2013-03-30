@@ -22,7 +22,7 @@ pkg_platform = if platform?('freebsd')
                  "solaris-x86" # TODO we currently support x86 platform
                end
 
-mmonit_version = node[:mmonit][:version] rescue '2.4'
+mmonit_version = node[:mmonit][:version]
 
 
 checksums = {
@@ -45,7 +45,7 @@ pkg_name = "mmonit-#{mmonit_version}-#{pkg_platform}"
 
 remote_file mmonit_pkg do
   source "http://mmonit.com/dist/#{pkg_name}.tar.gz"
-  checksum checksums[pkg_platform]
+  checksum node[:mmonit][:checksum] || checksums[pkg_platform]
   action :create_if_missing
   notifies :run, 'execute[extract mmonit package]', :immediately
 end
