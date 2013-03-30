@@ -19,7 +19,7 @@ attribute :start_program, :kind_of => String, :default => nil
 attribute :stop_program, :kind_of => String, :default => nil
 
 attribute :host, :kind_of => String, :default => 'localhost'
-attribute :port, :kind_of => String, :default => nil
+attribute :port, :kind_of => [Fixnum,String], :default => nil
 attribute :ssl, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :protocol, :kind_of => String, :default => nil
 attribute :template, :kind_of => String, :default => "generic_service"
