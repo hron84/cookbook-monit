@@ -1,0 +1,11 @@
+check process <%= @options.process_or_default %> with pidfile <%= @options.pidfile_or_default %>
+<% if @options.group -%>
+        group <%= @options.group %>
+<% end -%>
+        start program = <%= @options.start_or_default.inspect %>
+        stop  program = <%= @options.stop_or_default.inspect  %>
+<%- if @options.port and @options.port != '' %>
+        if failed host <%= @options.host %> port <%= @options.port %> <%= @options.ssl ? "type TCPSSL" : "" %> <%= @options.protocol ? "protocol #{@options.protocol}" : "" %>  then restart
+<%- end %>      
+        if 5 restarts within 5 cycles then alert
+
