@@ -26,34 +26,6 @@ end
   end
 end
 
-default_options = {
-  'check_interval' => '120',
-  'log'            =>'/var/log/monit.log',
-  'mailserver'     => {
-    'host'         => 'localhost',
-    'port'         => '25', 
-  },
-  'httpd'          => {
-    'enable'       => false,
-    'address'      =>'localhost',
-    'port'         =>'2812',
-    'user'         =>'admin',
-    'password'     => 'monit'
-  },
-  'mailformat'     => {
-    'from'         => "root@#{node[:fqdn]}",
-    'subject'      => 'monit alert --  $EVENT $SERVICE'
-  },
-  'mmonit_url' => nil
-}
-
-options = node['monit'] || {}
-options.delete('mailformat') if options['mailformat'] and options['mailformat'].empty?
-options = default_options.merge(options)
-options['httpd'] = default_options['httpd'].merge(options['httpd'])
-options['mailformat'] = default_options['mailformat'].merge(options['mailformat'])
-options['mailserver'] = default_options['mailserver'].merge(options['mailserver'])
-
 
 cookbook_file '/etc/default/monit' do
   source 'monit.debuntu.confd'
@@ -64,7 +36,7 @@ end
 template '/etc/monit/monitrc' do
   source 'monitrc.erb'
   variables(
-    :options => options
+    :options => node[:monit]
   )
   notifies :restart, 'service[monit]', :delayed
 end

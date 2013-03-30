@@ -16,12 +16,12 @@
 ##
 ## Start Monit in the background (run as a daemon):
 #
-  set daemon <%= @options['check_interval'] rescue 120 %>
+  set daemon <%= @options[:check_interval] rescue 120 %>
 
-<% if @options['log'] == 'syslog' -%>
+<% if @options[:log] == 'syslog' -%>
   set logfile syslog facility log_daemon
 <% else -%>
-  set logfile /var/log/monit.log
+  set logfile <%= @options[:log] %>
 <% end -%>
 #
 #
@@ -50,10 +50,10 @@
 #                localhost                   # fallback relay
 #
 #
-<% if @options['mailserver'] and not @options['mailserver'].empty? -%>
-    set mailserver <%=  @options['mailserver']['host'] %> port <%= @options['mailserver']['port'] %>
-<%- if @options['backup_mailserver'] and not @options['backup_mailserver'].empty? %>,
-                   <%=  @options['backup_mailserver']['host'] %> port <%= @options['backup_mailserver']['port'] %>
+<% if @options[:mailserver] and not @options[:mailserver].empty? -%>
+    set mailserver <%=  @options[:mailserver][:host] %> port <%= @options[:mailserver][:port] %>
+<%- if @options[:backup_mailserver] and not @options[:backup_mailserver].empty? %>,
+                   <%=  @options[:backup_mailserver][:host] %> port <%= @options[:backup_mailserver][:port] %>
 <% end -%>
 <% end -%>
 
@@ -79,8 +79,8 @@
 #
 # set mmonit http://monit:monit@192.168.1.10:8080/collector
 #     # and register without credentials     # Don't register credentials
-<% if @options['mmonit_url'] and not @options['mmonit_url'].empty? %>
-  set mmonit <%= @options['mmonit_url'] %>
+<% if @options[:mmonit_url] and not @options[:mmonit_url].empty? %>
+  set mmonit <%= @options[:mmonit_url] %>
 <% end -%>
 
 #
@@ -108,11 +108,10 @@
 #
 # set mail-format { from: monit@foo.bar }
 #
-# <%= @options.inspect %>
-<%- if @options['mailformat'] and not  @options['mailformat'].empty? %>
+<%- if @options[:mailformat] and not  @options[:mailformat].empty? %>
 set mail-format {
-    from: <%= @options['mailformat']['from'] %>
- subject: <%= @options['mailformat']['subject'] %>
+    from: <%= @options[:mailformat][:from] %>
+ subject: <%= @options[:mailformat][:subject] %>
 }
 <% end -%>
 #
@@ -136,11 +135,11 @@ set mail-format {
 #    allow @monit           # allow users of group 'monit' to connect (rw)
 #    allow @users readonly  # allow users of group 'users' to connect readonly
 
-<% if @options['httpd']['enable'] -%>
-  set httpd port <%=  @options['httpd']['port'] %> and
-    use address <%=  @options['httpd']['address'] %>
+<% if @options[:httpd][:enable] -%>
+  set httpd port <%=  @options[:httpd][:port] %> and
+    use address <%=  @options[:httpd][:address] %>
     allow localhost
-    allow <%=  [ @options['httpd']['user'], @options['httpd']['password'] ].join(':') %>
+    allow <%=  [ @options[:httpd][:user], @options[:httpd][:password] ].join(':') %>
 <% end -%>
 
 ###############################################################################
