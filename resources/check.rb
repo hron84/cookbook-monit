@@ -4,7 +4,7 @@
 #
 # Copyright:: (C) 2013 Gabor Garami
 # 
-# All rights reserved - Do Not Redistribute
+# Released under the MIT license
 
 actions :enable, :disable
 
