@@ -43,7 +43,7 @@ def pidfile_or_default
 end
 
 def start_or_default
-  start_program || if platform?('redhat', 'centos', 'fedora', 'amazon', 'scientific')
+  start_program || if platform?('redhat', 'centos', 'fedora', 'suse', 'amazon', 'scientific')
                      "/sbin/service #{service_or_default} start"
                    elsif platform?('ubuntu')
                      "/usr/sbin/service #{service_or_default} start"
@@ -53,7 +53,7 @@ def start_or_default
 end
 
 def stop_or_default
-  stop_program || if platform?('redhat', 'centos', 'fedora', 'amazon', 'scientific')
+  stop_program || if platform?('redhat', 'centos', 'fedora', 'suse', 'amazon', 'scientific')
                      "/sbin/service #{service_or_default} stop"
                    elsif platform?('ubuntu')
                      "/usr/sbin/service #{service_or_default} stop"
