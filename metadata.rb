@@ -39,7 +39,7 @@ attribute        'mmonit/checksum',          :display_name => 'M/Monit checksum'
 attribute        'monit/check_interval',     :display_name => 'Check interval',
                                              :type => 'string',
                                              :required => 'required',
-                                             :default => 120,
+                                             :default => '120',
                                              :recipes => %w(monit::default)
 
 attribute        'monit/log',                :display_name => 'Log file', 
