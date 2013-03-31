@@ -45,13 +45,3 @@ monit_check 'monit' do
   action :enable
 end
 
-monit_check 'sshd' do
-  if platform?('ubuntu')
-    service 'ssh'
-    process 'sshd'
-    pidfile '/var/run/sshd.pid'
-  end
-
-  host 'localhost'
-  port '22'
-end
