@@ -135,7 +135,7 @@ set mail-format {
 #    allow @monit           # allow users of group 'monit' to connect (rw)
 #    allow @users readonly  # allow users of group 'users' to connect readonly
 
-<% if @options[:httpd][:enable] -%>
+<% if @options[:httpd][:enable].to_s == 'true' -%>
   set httpd port <%=  @options[:httpd][:port] %> and
     use address <%=  @options[:httpd][:address] %>
     allow localhost
