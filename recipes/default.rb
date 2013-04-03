@@ -14,10 +14,10 @@ end
 service 'monit' do
   supports :status => true, :restart => true, :reload => true
   reload_command platform?("debian") ? "/usr/sbin/monit reload" : "/usr/bin/monit reload"
-  action :enable
+  action [ :enable, :start ]
 end
 
-%w(/etc/monit /var/lib/monit).each do |dir|
+%w(/etc/monit /etc/monit/conf.d /var/lib/monit).each do |dir|
   directory dir do
     owner 'root'
     group 'root'
