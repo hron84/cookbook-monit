@@ -11,6 +11,7 @@ include Chef::Mixin::ShellOut
 action :enable do
   template "/etc/monit/conf.d/#{new_resource.file_name}" do
     source "#{new_resource.template}.erb"
+    cookbook new_resource.template == 'generic_service' ? 'monit' : nil
     variables ({:options => new_resource})
     notifies :reload, 'service[monit]', :delayed
   end
