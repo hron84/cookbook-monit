@@ -3,7 +3,6 @@ default[:monit][:log] = '/var/log/monit.log'
 default[:monit][:mailserver][:host] = 'localhost'
 default[:monit][:mailserver][:port] = 25
 default[:monit][:httpd][:enable] = false
-default[:monit][:httpd][:address] = 'localhost'
 default[:monit][:httpd][:port] = 2812
 default[:monit][:httpd][:user] = 'admin'
 default[:monit][:httpd][:password] = 'monit' # TODO move it to data bag

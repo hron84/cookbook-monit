@@ -137,7 +137,7 @@ set mail-format {
 
 <% if @options[:httpd][:enable].to_s == 'true' -%>
   set httpd port <%=  @options[:httpd][:port] %> and
-    use address <%=  @options[:httpd][:address] %>
+    use address <%=  @options[:httpd][:address] or node[:ipaddress] %>
     allow localhost
     <%- Array(@options[:httpd][:remote_addresses]).each do |ip| %>
     allow <%= ip %>
